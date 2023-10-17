@@ -21,7 +21,7 @@ public class Transversal {
                 System.out.println("dni: "+ encontradoDni.getDni());
         System.out.println("Nombre completo: "+encontradoDni.getApellido()+" "+ encontradoDni.getNombre());*/
        //alumno.modificarAlumno(beto);
-       alumno.eliminarAlumno(8);
+      // alumno.eliminarAlumno(8);
     }
     
 }

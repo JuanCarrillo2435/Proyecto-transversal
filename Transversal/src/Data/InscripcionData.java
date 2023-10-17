@@ -5,6 +5,7 @@ import Entidades.Alumno;
 import Entidades.Inscripcion;
 import java.sql.*;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class InscripcionData {
 
@@ -13,10 +14,30 @@ public class InscripcionData {
     private AlumnoData alumData;
 
     public InscripcionData() {
-        con= Conexion.getConexion();
+        con = Conexion.getConexion();
     }
 
     public void guardarInscripcion(Inscripcion insc) {
+        String sql = "INSERT INTO inscripcion(nota, idAlumno, idMateria) VALUES (?,?,?,?)";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, insc.getIdInscripto());
+            ps.setObject(2, insc.getAlumno());
+            ps.setObject(3, insc.getMateria());
+            ps.setDouble(4, insc.getNota());
+            ps.executeUpdate();
+            
+            ResultSet rs = ps.getGeneratedKeys();
+            
+            if (rs.next()) {
+                insc.setIdInscripto(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Inscripcion exito");    
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Inscripcion");
+        }
 
     }
 
@@ -39,17 +60,17 @@ public class InscripcionData {
 
         return null;
     }
-    
-    public void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria){
-        
+
+    public void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {
+
     }
-    
-    public void actualizarNota(int idAlumno, int idMateria, double nota){
-        
+
+    public void actualizarNota(int idAlumno, int idMateria, double nota) {
+
     }
-    
-    List<Alumno> obtenerAlumnosXMateria (int idMateria){
-        
+
+    List<Alumno> obtenerAlumnosXMateria(int idMateria) {
+
         return null;
     }
 

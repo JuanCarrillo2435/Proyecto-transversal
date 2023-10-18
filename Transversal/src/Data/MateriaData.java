@@ -3,7 +3,9 @@ package Data;
 import Conexion.Conexion;
 import Entidades.Materia;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class MateriaData {
     private Connection con;
@@ -23,7 +25,7 @@ public class MateriaData {
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                materia.setidMateria(rs.getInt(1));
+                materia.setIdMateria(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Materia agregada con exito.");
             }
             ps.close();
@@ -45,7 +47,7 @@ public class MateriaData {
                 materia.setIdMateria(id);
                 materia.setNombre(rs.getString("nombre"));
                 materia.setAnio(rs.getInt("año"));
-                materia.setEstado((rs.getBoolean("estado"));
+                materia.setEstado((rs.getBoolean("estado")));
             }else{
             JOptionPane.showMessageDialog(null, "No existe la materia");
             }
@@ -97,8 +99,8 @@ public class MateriaData {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                materia = new Materia();
-                materia.setIdAlumno(rs.getInt("idAlumno"));
+                Materia materia = new Materia();
+                materia.setIdMateria(rs.getInt("idAlumno"));
                 materia.setNombre(rs.getString("nombre"));
                 materia.setAnio(rs.getInt("anio"));
                 materia.setEstado(rs.getBoolean("estado"));

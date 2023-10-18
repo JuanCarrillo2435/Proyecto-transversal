@@ -9,6 +9,7 @@ import Entidades.Materia;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 
 public class Transversal {
     public static void main(String[] args) {
@@ -17,14 +18,31 @@ public class Transversal {
       Alumno beto = new Alumno(12 , "Soli", "Marcos", LocalDate.of(2000, Month.APRIL, 28), 42788256, true);
       AlumnoData alumno = new AlumnoData();
       //alumno.guardarAlumno(beto);
+     // alumno.eliminarAlumno(12);
       Materia mat = new Materia(1 ,"Programación", 2021, true);
-     // Materia mat1 = new Materia("Mat", 2, true);
-    //  MateriaData guardar = new MateriaData();
-      //guardar.guardarMateria(mat);
+      Materia mat1 = new Materia(1 ,"Lengua", 2108, true);
       
-      InscripcionData g = new InscripcionData();
-      Inscripcion insc = new Inscripcion(8, beto ,mat); 
-      g.guardarInscripcion(insc);
+      MateriaData materia = new MateriaData();
+    //  materia.modificarMateria(mat1);
+    MateriaData guardar = new MateriaData();
+     // guardar.guardarMateria(mat);
+      List<Materia> b = materia.listarMateria();
+       
+      if(b != null){
+          for (int i = 0; i < b.size(); i++) {
+            Materia materia1 = b.get(i);
+            System.out.println(materia1);
+        }
+      }else{
+                System.out.println("Lista nula");}
+        
+      //Materia a = materia.buscarMateria(1);
+       // System.out.println(a.toString());
+      //InscripcionData g = new InscripcionData();
+      //Inscripcion insc = new Inscripcion(8, beto ,mat); 
+     // g.guardarInscripcion(insc);
+      
+     //materia.eliminarMateria(1);
        /* Alumno encontrado=  alumno.buscarAlumno(8);
      //agregar if =!null
         System.out.println("dni: "+ encontrado.getDni());

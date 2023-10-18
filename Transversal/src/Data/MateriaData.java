@@ -35,7 +35,7 @@ public class MateriaData {
     }
     
     
-    Materia buscarMateria(int id){
+    public Materia buscarMateria(int id){
                 String sql= "SELECT idMateria, nombre, anio, estado FROM materia WHERE idMateria = ? AND estado=1";
         Materia materia=null;
         try {
@@ -46,8 +46,8 @@ public class MateriaData {
                 materia=new Materia();
                 materia.setIdMateria(id);
                 materia.setNombre(rs.getString("nombre"));
-                materia.setAnio(rs.getInt("año"));
-                materia.setEstado((rs.getBoolean("estado")));
+                materia.setAnio(rs.getInt("anio"));
+                materia.setEstado(rs.getBoolean("estado"));
             }else{
             JOptionPane.showMessageDialog(null, "No existe la materia");
             }
@@ -92,7 +92,7 @@ public class MateriaData {
         }
     }
     
-    List<Materia> listarMateria(){
+   public List<Materia> listarMateria(){
                 List<Materia> materias = new ArrayList<>();
         try {
             String sql = "SELECT * FROM materia WHERE estado = 1 ";
@@ -100,7 +100,7 @@ public class MateriaData {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Materia materia = new Materia();
-                materia.setIdMateria(rs.getInt("idAlumno"));
+                materia.setIdMateria(rs.getInt("idMateria"));
                 materia.setNombre(rs.getString("nombre"));
                 materia.setAnio(rs.getInt("anio"));
                 materia.setEstado(rs.getBoolean("estado"));
@@ -111,7 +111,7 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Alumno " + ex.getMessage());
         }
         
-        return null;
+        return materias;
     }
     
     

@@ -4,6 +4,7 @@ import Conexion.Conexion;
 import Entidades.Alumno;
 import Entidades.Inscripcion;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -43,7 +44,7 @@ public class InscripcionData {
     }
 
     List<Inscripcion> obtenerInscripciones() {
-
+        List<Inscripcion> insc = new ArrayList();
         return null;
     }
 

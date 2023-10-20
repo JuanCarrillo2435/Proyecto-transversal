@@ -28,10 +28,10 @@ public class Transversal {
         // alumno.eliminarAlumno(12);
         //--------------------------------
         //CREAR OBJETOS DE TIPO MATERIA
-         MateriaData materia = new MateriaData();
+        MateriaData materia = new MateriaData();
         Materia mat = materia.buscarMateria(3);
         Materia lengua = new Materia(1, "Lengua", 2108, true);
-       
+
         //--------------------------------
         //  materia.modificarMateria(mat1);
         // MateriaData guardar = new MateriaData();
@@ -60,23 +60,32 @@ public class Transversal {
 //            System.out.println("Lista nula");
 //        }
         //---------------------------------
-        List<Inscripcion> obtenerInscIdAl = i.obtenerInscripcionesPorAlumno(12);
-         if (obtenerInscIdAl != null) {
-            for (int o = 0; o < obtenerInscIdAl.size(); o++) {
-                Inscripcion inscripcion1 = obtenerInscIdAl.get(o);
+//        List<Inscripcion> obtenerInscIdAl = i.obtenerInscripcionesPorAlumno(12);
+//        if (obtenerInscIdAl != null) {
+//            for (int o = 0; o < obtenerInscIdAl.size(); o++) {
+//                Inscripcion inscripcion1 = obtenerInscIdAl.get(o);
+//                System.out.println(inscripcion1);
+//            }
+//        } else {
+//            System.out.println("Lista nula");
+//        }
+        //--------------------------------
+        List<Alumno> obtenerAlumnosPorMateria = i.obtenerAlumnosXMateria(1);
+        if (obtenerAlumnosPorMateria != null) {
+            for (int o = 0; o < obtenerAlumnosPorMateria.size(); o++) {
+                Alumno inscripcion1 = obtenerAlumnosPorMateria.get(o);
                 System.out.println(inscripcion1);
             }
         } else {
             System.out.println("Lista nula");
         }
-  
 
         //Materia a = materia.buscarMateria(1);
         // System.out.println(a.toString());
         //CONSULTAR DUPLICADO
-      InscripcionData g = new InscripcionData();
-        Inscripcion insc = new Inscripcion(10, beto ,mat); 
-      g.guardarInscripcion(insc);
+//        InscripcionData g = new InscripcionData();
+//        Inscripcion insc = new Inscripcion(10, beto, mat);
+//        g.guardarInscripcion(insc);
         //materia.eliminarMateria(1);
         /* Alumno encontrado=  alumno.buscarAlumno(8);
      //agregar if =!null

@@ -126,10 +126,35 @@ public class InscripcionData {
 
     }
 
-    List<Alumno> obtenerAlumnosXMateria(int idMateria) {
+  public List<Alumno> obtenerAlumnosXMateria(int idMateria) {
+    List<Alumno> alumnos = new ArrayList<>();
+    try {
+        String sql = "SELECT a.* FROM alumno a " +
+                     "INNER JOIN inscripcion i ON a.idAlumno = i.idAlumno " +
+                     "WHERE i.idMateria = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idMateria); // Configurar el parámetro idMateria en la consulta SQL
+        ResultSet rs = ps.executeQuery();
 
-        return null;
+        while (rs.next()) {
+            Alumno alumno = new Alumno();
+            alumno.setIdAlumno(rs.getInt("idAlumno"));
+            alumno.setNombre(rs.getString("nombre"));
+            alumno.setApellido(rs.getString("apellido"));
+            alumno.setFechaDeNacimiento(rs.getDate("fechaDeNacimiento").toLocalDate());
+            alumno.setEstado(true);
+            // Otros atributos de Alumno
+
+            alumnos.add(alumno);
+        }
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno: " + ex.getMessage());
     }
+
+    return alumnos;
+}
+
 
 }
 

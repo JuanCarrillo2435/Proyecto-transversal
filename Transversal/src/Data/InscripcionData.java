@@ -75,9 +75,37 @@ public class InscripcionData {
         return inscripciones;
     }
 
-    List<Inscripcion> obtenerInscripcionesPorAlumno(int id) {
+    public List<Inscripcion> obtenerInscripcionesPorAlumno(int id) {
+         List<Inscripcion> inscripciones = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM inscripcion WHERE idAlumno = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            
 
-        return null;
+            while (rs.next()) {
+                Inscripcion inscripcion = new Inscripcion();
+                inscripcion.setIdInscripto(rs.getInt("idInscripto"));
+                inscripcion.setNota(rs.getInt("nota"));
+
+                // Obtener información relacionada de Alumno y Materia y asignarla a Inscripcion
+                Alumno alumno = new Alumno();
+                alumno.setIdAlumno(rs.getInt("idAlumno"));
+                inscripcion.setAlumno(alumno); // Supongamos que Inscripcion tiene un método setAlumno
+
+                Materia materia = new Materia();
+                materia.setIdMateria(rs.getInt("idMateria"));
+                inscripcion.setMateria(materia); // Supongamos que Inscripcion tiene un método setMateria
+
+                inscripciones.add(inscripcion);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Inscripcion: " + ex.getMessage());
+        }
+
+        return inscripciones;
     }
 
     List<Inscripcion> obtenerMateriasCursadas(int id) {
@@ -104,3 +132,4 @@ public class InscripcionData {
     }
 
 }
+

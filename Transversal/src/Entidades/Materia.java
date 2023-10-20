@@ -1,10 +1,10 @@
 package Entidades;
 
 public class Materia {
-    int idMateria;
-    String nombre;
-    int anio;
-    boolean estado;
+    private int idMateria;
+    private String nombre;
+    private int anio;
+    private boolean estado;
 
     public Materia() {
     }

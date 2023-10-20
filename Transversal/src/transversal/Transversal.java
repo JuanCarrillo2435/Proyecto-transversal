@@ -16,21 +16,41 @@ public class Transversal {
 
     public static void main(String[] args) {
 
-        Connection con = Conexion.getConexion();
         //--------------------------------
         // CREAR OBJETOS DE TIPO ALUMNO
-        Alumno beto = new Alumno(12, "Soli", "Marcos", LocalDate.of(2000, Month.APRIL, 28), 42788256, true);
-        Alumno martin = new Alumno(10, "Ochoa", "Martin", LocalDate.of(2002, Month.AUGUST, 21), 39082312, true);
+        Alumno beto = new Alumno("Carrillo", "Juan", LocalDate.of(2000, Month.DECEMBER, 20), 43221898, true);
+//        Alumno martin = new Alumno(10, "Ochoa", "Martin", LocalDate.of(2002, Month.AUGUST, 21), 39082312, true);
         AlumnoData alumno = new AlumnoData();
+//        System.out.println("antes "+beto);
         //--------------------------------
-        //alumno.guardarAlumno(beto);
+//        alumno.guardarAlumno(beto);
+//        System.out.println("despues "+beto);
+
+//        Alumno alumnoEncontrado = alumno.buscarAlumno(10);
+//        Alumno alumnoEncontrado = alumno.buscarAlumnoPorDni(43221898);
+//            List<Alumno> lista = alumno.listarAlumnos();
+//            System.out.println("");
+//            lista.forEach(alu -> {System.out.println(alu);});
+        
+//        System.out.println(alumnoEncontrado);
         // alumno.guardarAlumno(martin);
-        // alumno.eliminarAlumno(12);
+        
+        //buscar y borrar alumno
+//        Alumno alumnoEncontrado = alumno.buscarAlumnoPorDni(43221898);
+//        System.out.println(alumnoEncontrado);
+//         alumno.eliminarAlumno(alumnoEncontrado.getIdAlumno());
+
+        //Modificar Alumnos
+//        Alumno alumnoEncontrado = alumno.buscarAlumnoPorDni(12312312);
+//        System.out.println(alumnoEncontrado);
+//        alumnoEncontrado.setNombre("Luis Javier");
+//        alumno.modificarAlumno(alumnoEncontrado);
+//         alumno.eliminarAlumno(alumnoEncontrado.getIdAlumno());
         //--------------------------------
         //CREAR OBJETOS DE TIPO MATERIA
-        MateriaData materia = new MateriaData();
-        Materia mat = materia.buscarMateria(3);
-        Materia lengua = new Materia(1, "Lengua", 2108, true);
+//        MateriaData materia = new MateriaData();
+//        Materia mat = materia.buscarMateria(3);
+//        Materia lengua = new Materia(1, "Lengua", 2108, true);
 
         //--------------------------------
         //  materia.modificarMateria(mat1);
@@ -38,8 +58,7 @@ public class Transversal {
         // guardar.guardarMateria(mat);
         //--------------------------------
         //CREAMOS UNA LISTA 
-        List<Materia> b = materia.listarMateria();
-
+//        List<Materia> b = materia.listarMateria();
 //        if (b != null) {
 //            for (int i = 0; i < b.size(); i++) {
 //                Materia materia1 = b.get(i);
@@ -48,8 +67,7 @@ public class Transversal {
 //        } else {
 //            System.out.println("Lista nula");
 //        }
-        InscripcionData i = new InscripcionData();
-
+//        InscripcionData i = new InscripcionData();
 //        List<Inscripcion> inscr = i.obtenerInscripciones();
 //        if (inscr != null) {
 //            for (int o = 0; o < inscr.size(); o++) {
@@ -70,24 +88,23 @@ public class Transversal {
 //            System.out.println("Lista nula");
 //        }
         //--------------------------------
-        List<Alumno> obtenerAlumnosPorMateria = i.obtenerAlumnosXMateria(1);
-        if (obtenerAlumnosPorMateria != null) {
-            for (int o = 0; o < obtenerAlumnosPorMateria.size(); o++) {
-                Alumno inscripcion1 = obtenerAlumnosPorMateria.get(o);
-                System.out.println(inscripcion1);
-            }
-        } else {
-            System.out.println("Lista nula");
-        }
-
+//        List<Alumno> obtenerAlumnosPorMateria = i.obtenerAlumnosXMateria(1);
+//        if (obtenerAlumnosPorMateria != null) {
+//            for (int o = 0; o < obtenerAlumnosPorMateria.size(); o++) {
+//                Alumno inscripcion1 = obtenerAlumnosPorMateria.get(o);
+//                System.out.println(inscripcion1);
+//            }
+//        } else {
+//            System.out.println("Lista nula");
+//        }
         //Materia a = materia.buscarMateria(1);
         // System.out.println(a.toString());
         //CONSULTAR DUPLICADO
-        InscripcionData g = new InscripcionData();
-       Inscripcion insc = new Inscripcion(8, beto, mat);
-       //g.guardarInscripcion(insc);
-      // g.actualizarNota(12, 1, 4);
-      g.borrarInscripcionMateriaAlumno(12, 1);
+//        InscripcionData g = new InscripcionData();
+//       Inscripcion insc = new Inscripcion(8, beto, mat);
+        //g.guardarInscripcion(insc);
+        // g.actualizarNota(12, 1, 4);
+//      g.borrarInscripcionMateriaAlumno(12, 1);
         //materia.eliminarMateria(1);
         /* Alumno encontrado=  alumno.buscarAlumno(8);
      //agregar if =!null

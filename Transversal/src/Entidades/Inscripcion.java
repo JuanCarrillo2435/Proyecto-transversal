@@ -1,10 +1,10 @@
 package Entidades;
 
 public class Inscripcion {
-    int idInscripto;
-    Alumno alumno;
-    Materia materia;
-    double nota;
+    private int idInscripto;
+    private Alumno alumno;
+    private Materia materia;
+    private double nota;
 //    int idAlumn;
 //    int idMateri;
     public Inscripcion() {
@@ -70,7 +70,7 @@ public class Inscripcion {
 
     @Override
     public String toString() {
-        return "Inscripcion{" + "idInscripto=" + idInscripto + ", idAlumno=" + alumno.idAlumno + ", idMateria=" + materia.idMateria + ", nota=" + nota + '}';
+        return "Inscripcion{" + "idInscripto=" + idInscripto + ", idAlumno=" + alumno.getIdAlumno()+ ", idMateria=" + materia.getIdMateria()+ ", nota=" + nota + '}';
     }
     
 }

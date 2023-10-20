@@ -48,7 +48,7 @@ public class AlumnoData {
         String sql= "SELECT idAlumno, dni, apellido, nombre, fechaDeNacimiento, estado FROM alumno WHERE idAlumno = ? AND estado=1";
         Alumno alumno=null;
         try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs= ps.executeQuery();
             if(rs.next()){
@@ -60,7 +60,7 @@ public class AlumnoData {
                 alumno.setFechaDeNacimiento(rs.getDate("fechaDeNacimiento").toLocalDate());
                 alumno.setEstado(true);
             }else{
-            JOptionPane.showMessageDialog(null, "No existe un alumno con ese apellido");
+            JOptionPane.showMessageDialog(null, "No existe un alumno con ese ID");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno");
@@ -69,21 +69,22 @@ public class AlumnoData {
     }
               
     public Alumno buscarAlumnoPorDni(int dni) {
-          String sql= "SELECT idAlumno, dni, apellido, nombre, fechaDeNacimiento, estado FROM alumno WHERE dni = ? AND estado=1";
+          String sql= "SELECT idAlumno, dni, apellido, nombre, fechaDeNacimiento, estado FROM alumno WHERE dni = ? AND estado = 1";
         Alumno alumno=null;
         try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dni);
             ResultSet rs= ps.executeQuery();
             if(rs.next()){
                 alumno=new Alumno();
+                alumno.setIdAlumno(rs.getInt("idAlumno"));
                 alumno.setDni(dni);
                 alumno.setApellido(rs.getString("apellido"));
                 alumno.setNombre(rs.getString("nombre"));
                 alumno.setFechaDeNacimiento(rs.getDate("fechaDeNacimiento").toLocalDate());
                 alumno.setEstado(true);
             }else{
-            JOptionPane.showMessageDialog(null, "No existe un alumno con ese apellido");
+            JOptionPane.showMessageDialog(null, "No existe un alumno con ese DNI");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno");
@@ -143,7 +144,11 @@ public class AlumnoData {
             int fila = ps.executeUpdate();
             if (fila == 1) {
                 JOptionPane.showMessageDialog(null, "Se eliminó el alumno.");
+            
+            }else{
+                JOptionPane.showMessageDialog(null, "El alumno no fue encontrado");
             }
+            
             ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno");

@@ -3,12 +3,12 @@ package Entidades;
 import java.time.LocalDate;
 
 public class Alumno {
-    int idAlumno;
-    String apellido;
-    String nombre;
-    LocalDate fechaDeNacimiento;
-    int dni;
-    boolean estado;
+    private int idAlumno;
+    private String apellido;
+    private String nombre;
+    private LocalDate fechaDeNacimiento;
+    private int dni;
+    private boolean estado;
 
     public Alumno() {
     }

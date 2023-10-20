@@ -59,11 +59,11 @@ public class InscripcionData {
                 // Obtener información relacionada de Alumno y Materia y asignarla a Inscripcion
                 Alumno alumno = new Alumno();
                 alumno.setIdAlumno(rs.getInt("idAlumno"));
-                inscripcion.setAlumno(alumno); // Supongamos que Inscripcion tiene un método setAlumno
+                inscripcion.setAlumno(alumno);
 
                 Materia materia = new Materia();
                 materia.setIdMateria(rs.getInt("idMateria"));
-                inscripcion.setMateria(materia); // Supongamos que Inscripcion tiene un método setMateria
+                inscripcion.setMateria(materia);
 
                 inscripciones.add(inscripcion);
             }
@@ -92,11 +92,11 @@ public class InscripcionData {
                 // Obtener información relacionada de Alumno y Materia y asignarla a Inscripcion
                 Alumno alumno = new Alumno();
                 alumno.setIdAlumno(rs.getInt("idAlumno"));
-                inscripcion.setAlumno(alumno); // Supongamos que Inscripcion tiene un método setAlumno
+                inscripcion.setAlumno(alumno); 
 
                 Materia materia = new Materia();
                 materia.setIdMateria(rs.getInt("idMateria"));
-                inscripcion.setMateria(materia); // Supongamos que Inscripcion tiene un método setMateria
+                inscripcion.setMateria(materia);
 
                 inscripciones.add(inscripcion);
             }

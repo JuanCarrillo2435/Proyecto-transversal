@@ -83,9 +83,11 @@ public class Transversal {
         //Materia a = materia.buscarMateria(1);
         // System.out.println(a.toString());
         //CONSULTAR DUPLICADO
-//        InscripcionData g = new InscripcionData();
-//        Inscripcion insc = new Inscripcion(10, beto, mat);
-//        g.guardarInscripcion(insc);
+        InscripcionData g = new InscripcionData();
+       Inscripcion insc = new Inscripcion(8, beto, mat);
+       //g.guardarInscripcion(insc);
+      // g.actualizarNota(12, 1, 4);
+      g.borrarInscripcionMateriaAlumno(12, 1);
         //materia.eliminarMateria(1);
         /* Alumno encontrado=  alumno.buscarAlumno(8);
      //agregar if =!null

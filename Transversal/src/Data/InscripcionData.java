@@ -118,13 +118,50 @@ public class InscripcionData {
         return null;
     }
 
-    public void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {
-
+  public void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {
+    try {
+        String sql = "DELETE FROM inscripcion WHERE idAlumno = ? AND idMateria = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idAlumno);
+        ps.setInt(2, idMateria);
+        
+        int filasBorradas = ps.executeUpdate();
+        
+        if (filasBorradas > 0) {
+            JOptionPane.showMessageDialog(null, "Inscripción eliminada correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró una inscripción correspondiente al alumno y materia especificados.");
+        }
+        
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al eliminar la inscripción: " + ex.getMessage());
     }
+}
 
-    public void actualizarNota(int idAlumno, int idMateria, double nota) {
 
+  public void actualizarNota(int idAlumno, int idMateria, double nota) {
+    try {
+        String sql = "UPDATE inscripcion SET nota = ? WHERE idAlumno = ? AND idMateria = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setDouble(1, nota);
+        ps.setInt(2, idAlumno);
+        ps.setInt(3, idMateria);
+        
+        int filasActualizadas = ps.executeUpdate();
+        
+        if (filasActualizadas > 0) {
+            JOptionPane.showMessageDialog(null, "Nota actualizada correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró una inscripción correspondiente al alumno y materia especificados.");
+        }
+        
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al actualizar la nota: " + ex.getMessage());
     }
+}
+
 
   public List<Alumno> obtenerAlumnosXMateria(int idMateria) {
     List<Alumno> alumnos = new ArrayList<>();

@@ -7,6 +7,8 @@ import Entidades.Materia;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class InscripcionData {
@@ -137,8 +139,32 @@ public class InscripcionData {
    
     List<Materia> obtenerMateriasNOCursadas(int id) {
         
+        ArrayList<Materia> materias = new ArrayList<>();
+         
+        try {
+             String sql = "SELECT * FROM materia WHERE estado = 1 AND idMateria NOT IN (SELECT idMateria FROM inscripcion WHERE idAlumno = ?)";
+            
+             PreparedStatement ps = con.prepareStatement(sql);
+             ps.setInt(1, id);
+             ResultSet rs = ps.executeQuery();
+             while(rs.next()){
+                 
+            Materia materia = new Materia();
+            materia.setIdMateria(rs.getInt("idMateria"));
+            materia.setNombre(rs.getString("nombre"));
+            materia.setAnio(rs.getInt("anio"));
+            materias.add(materia);
+                
+             }
+            ps.close();
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
 
-        return null;
+        return materias;
     }
 
   public void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {

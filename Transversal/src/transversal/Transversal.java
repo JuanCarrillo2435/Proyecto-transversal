@@ -33,18 +33,23 @@ public class Transversal {
 //            lista.forEach(alu -> {System.out.println(alu);});
 //        System.out.println(alumnoEncontrado);
         // alumno.guardarAlumno(martin);
+        
+
         //buscar y borrar alumno
+        
 //        Alumno alumnoEncontrado = alumno.buscarAlumnoPorDni(43221898);
 //        System.out.println(alumnoEncontrado);
 //         alumno.eliminarAlumno(alumnoEncontrado.getIdAlumno());
         //Modificar Alumnos
-        Alumno alumnoEncontrado = alumno.buscarAlumnoPorDni(12312312);
+        
+//        Alumno alumnoEncontrado = alumno.buscarAlumnoPorDni(12312312);
 //        System.out.println(alumnoEncontrado);
 //        alumnoEncontrado.setNombre("Luis Javier");
 //        alumno.modificarAlumno(alumnoEncontrado);
 //         alumno.eliminarAlumno(alumnoEncontrado.getIdAlumno());
         //--------------------------------
 //        CREAR OBJETOS DE TIPO MATERIA
+
 //        MateriaData materia = new MateriaData();
 //        Materia mat = materia.buscarMateria(3);
 //        Materia lengua = new Materia(1, "Lengua", 2108, true);
@@ -77,6 +82,8 @@ public class Transversal {
 //            System.out.println("Lista nula");
 //        }
         //---------------------------------
+        //Inscripcion por alumno
+        
 //        List<Inscripcion> obtenerInscIdAl = i.obtenerInscripcionesPorAlumno(12);
 //        if (obtenerInscIdAl != null) {
 //            for (int o = 0; o < obtenerInscIdAl.size(); o++) {
@@ -87,6 +94,8 @@ public class Transversal {
 //            System.out.println("Lista nula");
 //        }
         //--------------------------------
+        //Alumno por materia
+        
 //        List<Alumno> obtenerAlumnosPorMateria = i.obtenerAlumnosXMateria(1);
 //        if (obtenerAlumnosPorMateria != null) {
 //            for (int o = 0; o < obtenerAlumnosPorMateria.size(); o++) {
@@ -99,6 +108,7 @@ public class Transversal {
         //Materia a = materia.buscarMateria(1);
         // System.out.println(a.toString());
         //CONSULTAR DUPLICADO
+        
 //        InscripcionData g = new InscripcionData();
 //       Inscripcion insc = new Inscripcion(10, alumnoEncontrado, programacion);
 //        g.guardarInscripcion(insc);
@@ -117,6 +127,7 @@ public class Transversal {
         // alumno.eliminarAlumno(8);
         //------------------------------------------
         //Obtener materias cursadas
+        
 //        InscripcionData insc = new InscripcionData();
 //        List<Materia> obtenerMateriasCursadas = insc.obtenerMateriasCursadas(11);
 //        if (obtenerMateriasCursadas != null) {

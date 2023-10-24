@@ -2,12 +2,12 @@ package Vistas;
 
 import com.toedter.calendar.JDateChooser;
 
-public class VistasAlumno extends javax.swing.JInternalFrame {
+public class Alumno extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form VistasAlumno
      */
-    public VistasAlumno() {
+    public Alumno() {
         initComponents();
     }
 

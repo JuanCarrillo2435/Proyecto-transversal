@@ -7,6 +7,8 @@ import Entidades.Materia;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class InscripcionData {
@@ -59,11 +61,11 @@ public class InscripcionData {
                 // Obtener información relacionada de Alumno y Materia y asignarla a Inscripcion
                 Alumno alumno = new Alumno();
                 alumno.setIdAlumno(rs.getInt("idAlumno"));
-                inscripcion.setAlumno(alumno); // Supongamos que Inscripcion tiene un método setAlumno
+                inscripcion.setAlumno(alumno);
 
                 Materia materia = new Materia();
                 materia.setIdMateria(rs.getInt("idMateria"));
-                inscripcion.setMateria(materia); // Supongamos que Inscripcion tiene un método setMateria
+                inscripcion.setMateria(materia);
 
                 inscripciones.add(inscripcion);
             }
@@ -92,11 +94,11 @@ public class InscripcionData {
                 // Obtener información relacionada de Alumno y Materia y asignarla a Inscripcion
                 Alumno alumno = new Alumno();
                 alumno.setIdAlumno(rs.getInt("idAlumno"));
-                inscripcion.setAlumno(alumno); // Supongamos que Inscripcion tiene un método setAlumno
+                inscripcion.setAlumno(alumno); 
 
                 Materia materia = new Materia();
                 materia.setIdMateria(rs.getInt("idMateria"));
-                inscripcion.setMateria(materia); // Supongamos que Inscripcion tiene un método setMateria
+                inscripcion.setMateria(materia);
 
                 inscripciones.add(inscripcion);
             }
@@ -108,14 +110,61 @@ public class InscripcionData {
         return inscripciones;
     }
 
-    List<Inscripcion> obtenerMateriasCursadas(int id) {
-
-        return null;
+    public List<Materia> obtenerMateriasCursadas(int id) {
+        List<Materia> materias = new ArrayList<>();
+        
+        try {
+        String sql = "SELECT inscripcion.idMateria, nombre, anio FROM inscripcion,"
+                   + " materia WHERE inscripcion.idMateria = materia.idMateria\n"
+                   + "AND inscripcion.idAlumno = ?;";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        Materia materia;
+        while (rs.next()) {
+            materia = new Materia();
+            materia.setIdMateria(rs.getInt("idMateria"));
+            materia.setNombre(rs.getString("nombre"));
+            materia.setAnio(rs.getInt("anio"));
+            materias.add(materia);
+        }
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al obtener Inscripciones: " + ex.getMessage());
+    }
+    
+        return materias;
     }
 
-    List<Inscripcion> obtenerMateriasNOCursadas(int id) {
+   
+    public List<Materia> obtenerMateriasNOCursadas(int id) {
+        
+        ArrayList<Materia> materias = new ArrayList<>();
+         
+        try {
+             String sql = "SELECT * FROM materia WHERE estado = 1 AND idMateria NOT IN (SELECT idMateria FROM inscripcion WHERE idAlumno = ?)";
+            
+             PreparedStatement ps = con.prepareStatement(sql);
+             ps.setInt(1, id);
+             ResultSet rs = ps.executeQuery();
+             while(rs.next()){
+                 
+            Materia materia = new Materia();
+            materia.setIdMateria(rs.getInt("idMateria"));
+            materia.setNombre(rs.getString("nombre"));
+            materia.setAnio(rs.getInt("anio"));
+            materias.add(materia);
+                
+             }
+            ps.close();
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
 
-        return null;
+        return materias;
     }
 
   public void borrarInscripcionMateriaAlumno(int idAlumno, int idMateria) {

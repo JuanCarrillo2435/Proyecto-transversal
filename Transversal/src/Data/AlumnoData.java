@@ -13,26 +13,33 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class AlumnoData {
-
+    //esta variable se utilizará para mantener una conexión a la base de datos
     private Connection con = null;
 //    private Conexion conexion;
 
     public AlumnoData() {
+        //obtener conexión a la base de datos
         con= Conexion.getConexion();
     }
    
 
     public void guardarAlumno(Alumno alumno) {
-
+        //cadena sql, para posterior agregar nuevo registro a la tabla alumno
         String sql = "INSERT INTO alumno (dni, apellido, nombre, fechaDeNacimiento, estado) VALUES (?, ?, ?, ?, ?)";
         try {
+            //creamos un objeto tipo "PreparedStatement" 
+            //dsp de una inscerción la base de datos devolverá las claves generadas automáticamente
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            //asignamos valores a los marcadores de posición de sql
+            //1,2,3,4,5 son índices
+            //
             ps.setInt(1, alumno.getDni());
             ps.setString(2, alumno.getApellido());
             ps.setString(3, alumno.getNombre());
             ps.setDate(4, Date.valueOf(alumno.getFechaDeNacimiento())); // localDate a Date
             ps.setBoolean(5, alumno.isEstado()); // if reducido
             ps.executeUpdate();
+            //se aplican los resultados
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 alumno.setIdAlumno(rs.getInt(1));

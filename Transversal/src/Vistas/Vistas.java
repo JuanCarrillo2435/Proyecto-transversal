@@ -45,11 +45,11 @@ public class Vistas extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
+            .addGap(0, 757, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 441, Short.MAX_VALUE)
+            .addGap(0, 586, Short.MAX_VALUE)
         );
 
         alumnobar.setText("Alumno");
@@ -67,6 +67,11 @@ public class Vistas extends javax.swing.JFrame {
         materiabar.setText("Materia");
 
         formmateria.setText("Fromulario de materia");
+        formmateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                formmateriaActionPerformed(evt);
+            }
+        });
         materiabar.add(formmateria);
 
         menu.add(materiabar);
@@ -74,9 +79,19 @@ public class Vistas extends javax.swing.JFrame {
         adminbar.setText("Admininstracion");
 
         forminsc.setText("Manejo de inscripciones");
+        forminsc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                forminscActionPerformed(evt);
+            }
+        });
         adminbar.add(forminsc);
 
         formnotas.setText("Manipulacion de notas");
+        formnotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                formnotasActionPerformed(evt);
+            }
+        });
         adminbar.add(formnotas);
 
         menu.add(adminbar);
@@ -84,11 +99,21 @@ public class Vistas extends javax.swing.JFrame {
         consultasbar.setText("Consultas");
 
         formalumnoxmateria.setText("Alumnos por materia");
+        formalumnoxmateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                formalumnoxmateriaActionPerformed(evt);
+            }
+        });
         consultasbar.add(formalumnoxmateria);
 
         menu.add(consultasbar);
 
         salirbar.setText("Salir");
+        salirbar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirbarActionPerformed(evt);
+            }
+        });
         menu.add(salirbar);
 
         setJMenuBar(menu);
@@ -97,13 +122,11 @@ public class Vistas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -111,7 +134,50 @@ public class Vistas extends javax.swing.JFrame {
 
     private void formalumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formalumnoActionPerformed
         // TODO add your handling code here:
+        AlumnoVista alumno = new AlumnoVista();
+        jPanel1.add(alumno);
+        alumno.setVisible(true);
+        alumno.setMaximizable(true);
     }//GEN-LAST:event_formalumnoActionPerformed
+
+    private void formmateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formmateriaActionPerformed
+        // TODO add your handling code here:
+        MateriaVista materia = new MateriaVista();
+        jPanel1.add(materia);
+        materia.setVisible(true);
+        materia.setMaximizable(true);
+    }//GEN-LAST:event_formmateriaActionPerformed
+
+    private void forminscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forminscActionPerformed
+        // TODO add your handling code here:
+        FormularioInscripcion inscripcion = new FormularioInscripcion();
+        jPanel1.add(inscripcion);
+        inscripcion.setVisible(true);
+        inscripcion.setMaximizable(true);
+        
+    }//GEN-LAST:event_forminscActionPerformed
+
+    private void formnotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formnotasActionPerformed
+        // TODO add your handling code here:
+        Notas nota = new Notas();
+        jPanel1.add(nota);
+        nota.setVisible(true);
+        nota.setMaximizable(true);
+        
+    }//GEN-LAST:event_formnotasActionPerformed
+
+    private void formalumnoxmateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formalumnoxmateriaActionPerformed
+        // TODO add your handling code here:
+        AlumnosXMaterias consulta = new AlumnosXMaterias();
+        jPanel1.add(consulta);
+        consulta.setVisible(true);
+        consulta.setMaximizable(true);
+    }//GEN-LAST:event_formalumnoxmateriaActionPerformed
+
+    private void salirbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirbarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_salirbarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,7 +223,7 @@ public class Vistas extends javax.swing.JFrame {
     private javax.swing.JMenuItem forminsc;
     private javax.swing.JMenuItem formmateria;
     private javax.swing.JMenuItem formnotas;
-    private javax.swing.JPanel jPanel1;
+    public static javax.swing.JPanel jPanel1;
     private javax.swing.JMenu materiabar;
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenu salirbar;

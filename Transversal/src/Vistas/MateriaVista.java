@@ -9,12 +9,12 @@ package Vistas;
  *
  * @author Usuario
  */
-public class Materia extends javax.swing.JInternalFrame {
+public class MateriaVista extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form VistasMateria
      */
-    public Materia() {
+    public MateriaVista() {
         initComponents();
     }
 
@@ -128,9 +128,10 @@ public class Materia extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(jTanio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(76, 76, 76)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jRestado))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRestado)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)))
                 .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBnuevo)

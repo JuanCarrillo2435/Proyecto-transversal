@@ -1,6 +1,12 @@
 package Vistas;
+
 import javax.swing.JFrame;
 import com.toedter.calendar.JDateChooser;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class AlumnoVista extends javax.swing.JInternalFrame {
 
@@ -46,6 +52,12 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Fecha de Nacimiento");
 
+        jTdocumento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTdocumentoActionPerformed(evt);
+            }
+        });
+
         jTnombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTnombreActionPerformed(evt);
@@ -55,10 +67,20 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
         jBbuscar.setText("Buscar");
 
         jBnuevo.setText("Nuevo");
+        jBnuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBnuevoActionPerformed(evt);
+            }
+        });
 
         jBeliminar.setText("Eliminar");
 
         jNguardar.setText("Guardar");
+        jNguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNguardarActionPerformed(evt);
+            }
+        });
 
         jBsalir.setText("Salir");
 
@@ -79,15 +101,15 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTdocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(89, 89, 89)
-                                .addComponent(jBbuscar))
                             .addComponent(jRestado)
-                            .addComponent(calendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jTapellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(calendario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                    .addComponent(jTnombre, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTapellido, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTdocumento, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(28, 28, 28)
+                                .addComponent(jBbuscar))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(jBeliminar)
@@ -137,7 +159,37 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTnombreActionPerformed
 
+    private void jTdocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTdocumentoActionPerformed
 
+    }//GEN-LAST:event_jTdocumentoActionPerformed
+
+    private void jBnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBnuevoActionPerformed
+        borrar();
+    }//GEN-LAST:event_jBnuevoActionPerformed
+
+    private void jNguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNguardarActionPerformed
+        String dni = jTdocumento.getText();
+        String apellido = jTapellido.getText();
+        String nombre = jTnombre.getText();
+        boolean estado = jRestado.isSelected();
+        Date calen = calendario.getDate();
+       
+//        LocalDate fecha =calen.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//        JOptionPane.showMessageDialog(null, fecha);
+
+          Date fecha = calendario.getDate();
+          SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-d");
+          JOptionPane.showMessageDialog(null, formato.format(fecha));
+    }//GEN-LAST:event_jNguardarActionPerformed
+
+    private void borrar() {
+
+        jTdocumento.setText("");
+        jTapellido.setText("");
+        jTnombre.setText("");
+        calendario.setDate(null);
+        jRestado.setSelected(false);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser calendario;
     private javax.swing.JButton jBbuscar;

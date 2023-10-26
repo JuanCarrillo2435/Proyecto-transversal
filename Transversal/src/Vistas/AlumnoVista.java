@@ -1,10 +1,14 @@
 package Vistas;
 
+import Data.AlumnoData;
+import Entidades.Alumno;
 import javax.swing.JFrame;
 import com.toedter.calendar.JDateChooser;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -168,18 +172,33 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBnuevoActionPerformed
 
     private void jNguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNguardarActionPerformed
+        try{
         String dni = jTdocumento.getText();
+        int dni2= Integer.parseInt(dni);
         String apellido = jTapellido.getText();
         String nombre = jTnombre.getText();
         boolean estado = jRestado.isSelected();
         Date calen = calendario.getDate();
        
-//        LocalDate fecha =calen.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//        JOptionPane.showMessageDialog(null, fecha);
+        LocalDate fecha =calen.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Define el formato deseado
+        String fechaFormateada = fecha.format(formatter);
+        String fechaF = fecha.toString();
 
-          Date fecha = calendario.getDate();
-          SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-d");
-          JOptionPane.showMessageDialog(null, formato.format(fecha));
+//          Date fecha = calendario.getDate();
+//          SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-d");
+//          JOptionPane.showMessageDialog(null, formato.format(fecha));
+
+       Alumno alumno = new Alumno(apellido, nombre, fecha, dni2, estado);
+       
+       AlumnoData alu = new AlumnoData();
+       
+       alu.guardarAlumno(alumno);
+        
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "Algo salio mal");
+        }
     }//GEN-LAST:event_jNguardarActionPerformed
 
     private void borrar() {

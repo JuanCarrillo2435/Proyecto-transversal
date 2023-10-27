@@ -5,11 +5,21 @@
  */
 package Vistas;
 
+import Data.MateriaData;
+import Entidades.Materia;
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.ZoneId;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Usuario
  */
 public class MateriaVista extends javax.swing.JInternalFrame {
+
+    MateriaData materia = new MateriaData();
+    private Materia materiaActual = null;
 
     /**
      * Creates new form VistasMateria
@@ -62,14 +72,34 @@ public class MateriaVista extends javax.swing.JInternalFrame {
         });
 
         jBsalir.setText("Salir");
+        jBsalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBsalirActionPerformed(evt);
+            }
+        });
 
         jBbuscar.setText("Buscar");
+        jBbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBbuscarActionPerformed(evt);
+            }
+        });
 
         jBeliminar.setText("Eliminar");
 
         jBguardar.setText("Guardar");
+        jBguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBguardarActionPerformed(evt);
+            }
+        });
 
         jBnuevo.setText("Nuevo");
+        jBnuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBnuevoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,8 +160,7 @@ public class MateriaVista extends javax.swing.JInternalFrame {
                 .addGap(76, 76, 76)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRestado)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)))
+                    .addComponent(jLabel4))
                 .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBnuevo)
@@ -152,6 +181,87 @@ public class MateriaVista extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTanioActionPerformed
 
+    private void jBsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsalirActionPerformed
+        // TODO add your handling code here:
+        int confirmar = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas cerrar este proyecto?", "Confirmar Cierre", JOptionPane.YES_NO_OPTION);
+        if (confirmar == JOptionPane.YES_OPTION) {
+            dispose(); // Cierra la ventana actual (proyecto)
+        }
+    }//GEN-LAST:event_jBsalirActionPerformed
+
+    private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
+        // TODO add your handling code here:
+        try {
+            Integer codigo = Integer.parseInt(jTcodigo.getText());
+            materiaActual = materia.buscarMateria(codigo);
+            if (materiaActual != null) {
+                jTnombre.setText(materiaActual.getNombre());
+                Year year = Year.of(2023); // Ejemplo, puedes reemplazarlo con tu objeto Year
+                String yearAsString = year.toString();
+                jTanio.setText(yearAsString);
+                jRestado.setSelected(materiaActual.isEstado());
+
+            }
+
+        } catch (Exception e) {
+        }
+
+    }//GEN-LAST:event_jBbuscarActionPerformed
+
+    private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
+        // TODO add your handling code here:
+        try {
+            Integer codigo = Integer.parseInt(jTcodigo.getText());
+            String nombre = jTnombre.getText();
+            boolean estado = jRestado.isSelected();
+            String anioText = jTanio.getText(); // Suponiendo que jTanio es un JTextField
+
+            if (nombre.isEmpty()) {
+                // Realiza alguna acción si el nombre está vacío
+            } else {
+                int anio = 0;
+                try {
+                    anio = Integer.parseInt(anioText);
+                    // Verificar que el año sea válido (por ejemplo, mayor que cero)
+                    if (anio <= 0) {
+                        // Realiza alguna acción si el año no es válido
+                    } else {
+                        Materia materiaActual = new Materia(nombre, anio, estado);
+                        // Realiza lo que necesites con la instancia de Materia
+                    }
+                } catch (NumberFormatException e) {
+                    // Realiza alguna acción si no se pudo convertir el año a un número
+                }
+            }
+            int anio = Integer.parseInt(anioText);
+            if (materiaActual == null) {
+                materiaActual = new Materia(nombre, anio, estado);
+                materia.guardarMateria(materiaActual);
+            } else {
+                materiaActual.setNombre(nombre);
+                materiaActual.setAnio(anio);
+                materiaActual.setEstado(estado);
+                materia.modificarMateria(materiaActual);
+
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar el CÓDIGO. Asegúrese de poner solo números");
+        }
+    }//GEN-LAST:event_jBguardarActionPerformed
+
+    private void jBnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBnuevoActionPerformed
+        // TODO add your handling code here:
+        borrar();
+        materiaActual = null;
+    }//GEN-LAST:event_jBnuevoActionPerformed
+    private void borrar() {
+
+        jTcodigo.setText("");
+        jTnombre.setText("");
+        jTanio.setText("");
+        jRestado.setSelected(false);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBbuscar;

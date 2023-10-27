@@ -70,7 +70,7 @@ public class Inscripcion {
 
     @Override
     public String toString() {
-        return "Inscripcion{" + "idInscripto=" + idInscripto + ", idAlumno=" + alumno.getIdAlumno()+ ", idMateria=" + materia.getIdMateria()+ ", nota=" + nota + '}';
+        return ""+getNota();
     }
     
 }

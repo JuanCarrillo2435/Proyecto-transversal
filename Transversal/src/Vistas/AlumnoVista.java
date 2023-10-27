@@ -14,6 +14,9 @@ import javax.swing.JOptionPane;
 
 public class AlumnoVista extends javax.swing.JInternalFrame {
 
+    AlumnoData alu = new AlumnoData();
+    private Alumno alumnoActual = null;
+
     /**
      * Creates new form VistasAlumno
      */
@@ -69,6 +72,11 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
         });
 
         jBbuscar.setText("Buscar");
+        jBbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBbuscarActionPerformed(evt);
+            }
+        });
 
         jBnuevo.setText("Nuevo");
         jBnuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -78,6 +86,11 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
         });
 
         jBeliminar.setText("Eliminar");
+        jBeliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBeliminarActionPerformed(evt);
+            }
+        });
 
         jNguardar.setText("Guardar");
         jNguardar.addActionListener(new java.awt.event.ActionListener() {
@@ -87,6 +100,11 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
         });
 
         jBsalir.setText("Salir");
+        jBsalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBsalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,37 +187,83 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
 
     private void jBnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBnuevoActionPerformed
         borrar();
+        alumnoActual =null;
     }//GEN-LAST:event_jBnuevoActionPerformed
 
     private void jNguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNguardarActionPerformed
-        try{
-        String dni = jTdocumento.getText();
-        int dni2= Integer.parseInt(dni);
-        String apellido = jTapellido.getText();
-        String nombre = jTnombre.getText();
-        boolean estado = jRestado.isSelected();
-        Date calen = calendario.getDate();
-       
-        LocalDate fecha =calen.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Define el formato deseado
-        String fechaFormateada = fecha.format(formatter);
-        String fechaF = fecha.toString();
+        try {
+            Integer dni = Integer.parseInt(jTdocumento.getText());
+            String apellido = jTapellido.getText();
+            String nombre = jTnombre.getText();
+            if (nombre.isEmpty() || apellido.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No pueden haber campos vacíos");
+                return;
+            }
+            boolean estado = jRestado.isSelected();
+  //          Date fecha = calendario.getDate();
+            java.util.Date date = calendario.getDate();
+            LocalDate fechaNac = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-//          Date fecha = calendario.getDate();
-//          SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-d");
-//          JOptionPane.showMessageDialog(null, formato.format(fecha));
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Define el formato deseado
+//            String fechaFormateada = fecha.format(formatter);
+//            String fechaF = fecha.toString();
+            if (alumnoActual == null) {
+                alumnoActual = new Alumno(apellido, nombre, fechaNac, dni, estado);
+                alu.guardarAlumno(alumnoActual);
+            } else {
+                alumnoActual.setDni(dni);
+                alumnoActual.setApellido(apellido);
+                alumnoActual.setNombre(nombre);
+                alumnoActual.setFechaDeNacimiento(fechaNac);
+                alu.modificarAlumno(alumnoActual);
 
-       Alumno alumno = new Alumno(apellido, nombre, fecha, dni2, estado);
-       
-       AlumnoData alu = new AlumnoData();
-       
-       alu.guardarAlumno(alumno);
-        
-        }catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(null, "Algo salio mal");
+
+            }
+
+//            Alumno alumno = new Alumno(apellido, nombre, fecha, dni2, estado);
+//            alu.guardarAlumno(alumno);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar el DNI. Asegúrese de poner solo números");
         }
     }//GEN-LAST:event_jNguardarActionPerformed
+
+    private void jBbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBbuscarActionPerformed
+        // TODO add your handling code here:
+        try {
+            Integer dni = Integer.parseInt(jTdocumento.getText());
+            alumnoActual = alu.buscarAlumnoPorDni(dni);
+            if (alumnoActual != null) {
+                jTapellido.setText(alumnoActual.getApellido());
+                jTnombre.setText(alumnoActual.getNombre());
+                jRestado.setSelected(alumnoActual.isEstado());
+                LocalDate fecha = alumnoActual.getFechaDeNacimiento();
+                java.util.Date date = java.util.Date.from(fecha.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                calendario.setDate(date);
+            }
+
+        } catch (Exception e) {
+        }
+
+    }//GEN-LAST:event_jBbuscarActionPerformed
+
+    private void jBeliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBeliminarActionPerformed
+        // TODO add your handling code here:
+        if(alumnoActual!=null){
+            alu.eliminarAlumno(alumnoActual.getIdAlumno());
+            alumnoActual=null;
+            borrar();
+        }else {
+            JOptionPane.showMessageDialog(this, "No está seleccionado");
+        }
+    }//GEN-LAST:event_jBeliminarActionPerformed
+
+    private void jBsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBsalirActionPerformed
+        // TODO add your handling code here:
+        int confirmar = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas cerrar este proyecto?", "Confirmar Cierre", JOptionPane.YES_NO_OPTION);
+                if (confirmar == JOptionPane.YES_OPTION) {
+                    dispose(); // Cierra la ventana actual (proyecto)
+                }
+    }//GEN-LAST:event_jBsalirActionPerformed
 
     private void borrar() {
 
@@ -209,6 +273,7 @@ public class AlumnoVista extends javax.swing.JInternalFrame {
         calendario.setDate(null);
         jRestado.setSelected(false);
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser calendario;
     private javax.swing.JButton jBbuscar;

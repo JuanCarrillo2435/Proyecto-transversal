@@ -80,7 +80,7 @@ public class InscripcionData {
     public List<Inscripcion> obtenerInscripcionesPorAlumno(int id) {
          List<Inscripcion> inscripciones = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM inscripcion WHERE idAlumno = ?";
+            String sql = "SELECT idInscripto, idAlumno, materia.idMateria, materia.nombre, nota FROM inscripcion JOIN materia ON (inscripcion.idMateria = materia.idMateria) WHERE idAlumno = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -98,6 +98,7 @@ public class InscripcionData {
 
                 Materia materia = new Materia();
                 materia.setIdMateria(rs.getInt("idMateria"));
+                materia.setNombre(rs.getString("nombre"));
                 inscripcion.setMateria(materia);
 
                 inscripciones.add(inscripcion);

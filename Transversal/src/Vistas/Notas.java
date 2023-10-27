@@ -25,6 +25,7 @@ public class Notas extends javax.swing.JInternalFrame {
 
     private List<Materia> listaMateria;
     private List<Alumno> listaAlumno;
+    private List<Inscripcion> listaInscripcion;
 
     private InscripcionData inscData;
     private MateriaData matData;
@@ -39,7 +40,17 @@ public class Notas extends javax.swing.JInternalFrame {
         initComponents();
         aluData = new AlumnoData();
         listaAlumno = aluData.listarAlumnos();
-        modelo = new DefaultTableModel();
+        modelo = new DefaultTableModel(){
+            
+            @Override
+            public boolean isCellEditable(int f, int c) {
+                if(c==2){
+                    return true;
+                }
+                return false; //To change body of generated methods, choose Tools | Templates.
+            }
+
+        };
         insc = new Inscripcion();
         inscData = new InscripcionData();
         matData = new MateriaData();
@@ -62,7 +73,7 @@ public class Notas extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jCseleccionarAlum = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTMateria = new javax.swing.JTable();
         jBguardar = new javax.swing.JButton();
         jBsalir = new javax.swing.JButton();
 
@@ -76,7 +87,7 @@ public class Notas extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTMateria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -87,7 +98,7 @@ public class Notas extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTMateria);
 
         jBguardar.setText("Guardar");
         jBguardar.addActionListener(new java.awt.event.ActionListener() {
@@ -160,26 +171,35 @@ public class Notas extends javax.swing.JInternalFrame {
 
     private void jCseleccionarAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCseleccionarAlumActionPerformed
         // TODO add your handling code here:
-        borrarFila();
-        cargarNotaXAlumno();
+      borrarFila();
+//        cargarNotaXAlumno();
+    Alumno elegido = (Alumno) jCseleccionarAlum.getSelectedItem();
+    listaInscripcion = inscData.obtenerInscripcionesPorAlumno(elegido.getIdAlumno());
+    if(listaInscripcion.size()>0){
+        for(Inscripcion insc : listaInscripcion){
+           modelo.addRow(new Object[]{
+               insc.getMateria().getIdMateria(),
+               insc.getMateria().getNombre(),
+               insc.getNota()
+           });
+        }
+    }
 
     }//GEN-LAST:event_jCseleccionarAlumActionPerformed
 
     private void jBguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarActionPerformed
 
-        int filasSelecc = jTable1.getSelectedRow();
+        int filasSelecc = jTMateria.getSelectedRow();
         if (filasSelecc != -1) {
             Alumno a = (Alumno) jCseleccionarAlum.getSelectedItem();
-            int idMat = (int) modelo.getValueAt(filasSelecc, 0);
-            String nombreMat = (String) modelo.getValueAt(filasSelecc, 1);
-            int anio = (int) modelo.getValueAt(filasSelecc, 2);
-            Materia m = new Materia(idMat, nombreMat, anio, true);
-          //  int nota = 
-//            Inscripcion i = new Inscripcion(nota, a, m);
-//            inscData.actualizarNota(, idMat, nota);
-            //borrarFila();
+            int idMat = (Integer) modelo.getValueAt(filasSelecc, 0);
+            double nota = Double.parseDouble((String) modelo.getValueAt(filasSelecc, 2));
+            inscData.actualizarNota(a.getIdAlumno(), idMat, nota);
+            borrarFila();
+        }else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar la materia para actualizar la nota");
         }
-
+        
 
     }//GEN-LAST:event_jBguardarActionPerformed
 
@@ -190,14 +210,10 @@ public class Notas extends javax.swing.JInternalFrame {
     }
 
     private void armarTabla() {
-        ArrayList<Object> filaCab = new ArrayList<>();
-        filaCab.add("Codigo");
-        filaCab.add("Nombre");
-        filaCab.add("Nota");
-        for (Object it : filaCab) {
-            modelo.addColumn(it);
-        }
-        jTable1.setModel(modelo);
+        modelo.addColumn("Codigo");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Nota");
+        jTMateria.setModel(modelo);
     }
 
     private void borrarFila() {
@@ -207,14 +223,7 @@ public class Notas extends javax.swing.JInternalFrame {
         }
     }
 
-    private void cargarNotaXAlumno() {
-        Alumno selec = (Alumno) jCseleccionarAlum.getSelectedItem();
-        List<Materia> listaMateria = (ArrayList) inscData.obtenerMateriasCursadas(selec.getIdAlumno());
-        // Inscripcion inscripcion = new Inscripcion(0.0, selec, mat)
-        for (Materia m : listaMateria) {
-            modelo.addRow(new Object[]{m.getIdMateria(), m.getNombre(), insc});
-        }
-    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBguardar;
     private javax.swing.JButton jBsalir;
@@ -222,6 +231,6 @@ public class Notas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTMateria;
     // End of variables declaration//GEN-END:variables
 }

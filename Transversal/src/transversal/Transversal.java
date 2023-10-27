@@ -71,7 +71,7 @@ public class Transversal {
 //        } else {
 //            System.out.println("Lista nula");
 //        }
-//        InscripcionData i = new InscripcionData();
+        InscripcionData i = new InscripcionData();
 //        List<Inscripcion> inscr = i.obtenerInscripciones();
 //        if (inscr != null) {
 //            for (int o = 0; o < inscr.size(); o++) {
@@ -84,15 +84,18 @@ public class Transversal {
         //---------------------------------
         //Inscripcion por alumno
         
-//        List<Inscripcion> obtenerInscIdAl = i.obtenerInscripcionesPorAlumno(12);
-//        if (obtenerInscIdAl != null) {
-//            for (int o = 0; o < obtenerInscIdAl.size(); o++) {
-//                Inscripcion inscripcion1 = obtenerInscIdAl.get(o);
-//                System.out.println(inscripcion1);
-//            }
-//        } else {
-//            System.out.println("Lista nula");
-//        }
+    List<Inscripcion> obtenerInscIdAl = i.obtenerInscripcionesPorAlumno(10);
+        if (obtenerInscIdAl != null) {
+            for (int o = 0; o < obtenerInscIdAl.size(); o++) {
+                Inscripcion inscripcion1 = obtenerInscIdAl.get(o);
+                System.out.println(inscripcion1.getMateria());
+                System.out.println(inscripcion1.getAlumno().getIdAlumno());
+                System.out.println(inscripcion1.getNota());
+            }
+        } else {
+            System.out.println("Lista nula");
+        }
+        
         //--------------------------------
         //Alumno por materia
         
